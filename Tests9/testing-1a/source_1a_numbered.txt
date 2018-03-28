@@ -1,0 +1,28 @@
+procedure One {
+ 	x = 123;       //1 a
+ 	y = 0;			//2 a
+	if i then {		//3 i
+		i = x; }	//4 a
+	else {
+		i = y; 			} //5 a
+	ddd = x + y * 123;		//6 a
+	z = x * y + ddd + 321; //7 a
+	while w {				//8 w
+		w = w + z;      }	//9 a
+	x = z;					//10 a
+ 	y = ddd     +     2;	//11 a
+	while x {				//12 w
+		if y then {			//13 i
+			z = 75 + x;		//14 a
+		}
+		else {
+			z = 75 - x; }	//15 a
+	}
+	if ddd then {			//16 i
+		while y {			//17 w
+			ddd = 0*9; }      }	//18 a
+	else {
+		while y {				//19 w
+			ddd = z*x; }		//20 a
+			}
+}

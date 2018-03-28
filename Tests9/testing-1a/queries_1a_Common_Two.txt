@@ -1,0 +1,30 @@
+3 - Modifies and pattern
+assign a; variable v;
+Select a such that Modifies(a,v) pattern a(v,_"123"_)
+1,6
+5000
+7 - Modifies and pattern
+assign a; variable v;
+Select v such that Modifies(a,v) pattern a(v,_"z"_)
+ddd,w,x
+5000
+8 - Modifies and pattern (no result, no common answer)
+assign a; variable v;
+Select a such that Modifies(a,v) pattern a(v,_"i"_)
+
+5000
+13 - Uses and pattern (no result, no common answer)
+assign a; variable v;
+Select v such that Uses(a,v) pattern a(v,_"0"_)
+
+5000
+18 - Uses and pattern (no result, no common answer)
+assign a; variable v;
+Select a such that Uses(a,v) pattern a(v,_"y"_)
+
+5000
+21 - Uses and pattern
+assign a; variable v;
+Select v such that Uses(a,v) pattern a(v,_"z"_)
+w
+5000

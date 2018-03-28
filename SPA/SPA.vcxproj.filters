@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ResultTable.cpp">
+      <Filter>Source Files\PQL</Filter>
+    </ClCompile>
+    <ClCompile Include="patternTable.cpp">
+      <Filter>Source Files\Frontend</Filter>
+    </ClCompile>
+    <ClCompile Include="QueryObject.cpp">
+      <Filter>Source Files\PQL</Filter>
+    </ClCompile>
+    <ClCompile Include="QueryPreProcessor.cpp">
+      <Filter>Source Files\PQL</Filter>
+    </ClCompile>
+    <ClCompile Include="Clause.cpp">
+      <Filter>Source Files\PQL</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceToken.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExpressionUtility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="QueryObject.h">
+      <Filter>Header Files\PQL</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultTable.h">
+      <Filter>Header Files\PQL</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QueryPreProcessor.h">
+      <Filter>Header Files\PQL</Filter>
+    </ClInclude>
+    <ClInclude Include="Pair.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Clause.h">
+      <Filter>Header Files\PQL</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpressionUtility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceToken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{b71b2405-32e1-40a8-92a6-de972e464b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PQL">
+      <UniqueIdentifier>{a7c590b8-e1b6-4c3b-9293-99d6ed07abab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{374cc2a2-9200-48e0-a476-3919d3684a31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PQL">
+      <UniqueIdentifier>{7a63eed9-2223-4df5-9c31-88336db77b53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{e6332075-904c-48d1-b6f7-6365f93e5cc0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

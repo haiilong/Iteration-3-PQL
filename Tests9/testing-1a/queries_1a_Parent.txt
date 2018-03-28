@@ -1,0 +1,50 @@
+1 - Returning all parents
+stmt s1, s2;
+Select s1 such that Parent (s1,s2)
+3,8,12,13,16,17,19
+5000
+2 - Returning all children
+stmt s1, s2;
+Select s2 such that Parent(s1,s2)
+4,5,9,13,14,15,17,18,19,20
+5000
+5 - Test Parent using stmt synonym with stmt number (no results exist)
+stmt s;
+Select s such that Parent(s,3)
+
+5000
+6 - Test child using stmt number with stmt synonym
+stmt s;
+Select s such that Parent(13,s)
+14,15
+5000
+9 - Test Parent with two stmt numbers (no results exist)
+variable v;
+Select v such that Parent(17, 19)
+
+5000
+15 - Test Parent using stmt number with wildcard
+variable v;
+Select v such that Parent(12,_)
+ddd,i,w,x,y,z
+5000
+18 - Test Parent using while as child
+stmt s; while w;
+Select w such that Parent(s,w)
+17,19
+5000
+22 - Test Parent using assign as child
+assign a; stmt s;
+Select a such that Parent(s,a)
+4,5,9,14,15,18,20
+5000
+23 - Test Parent using while and assign
+assign a; while w;
+Select a such that Parent(w,a)
+9,18,20
+5000
+24 - Test Parent using while and assign
+assign a; while w;
+Select w such that Parent(w,a)
+8,17,19
+5000

@@ -1,0 +1,25 @@
+6 - Test Follows using stmt number with stmt synonym
+stmt s;
+Select s such that Follows(10,s)
+11
+5000
+10 - Test Follows with two wildcards
+variable v;
+Select v such that Follows(_ , _)
+a,b,c,d,e,f,g,h,k,i,j,m,n,x,y,o
+5000
+17 - Test Follows using while as followed-by
+while w;
+Select w such that Follows(w,_)
+1,11
+5000
+24 - Test Follows using while with assign
+assign a; while w;
+Select a such that Follows(w,a)
+20,24
+5000
+28 - Test Follows using stmt number with assign
+assign a;
+Select a such that Follows(a,8)
+7
+5000

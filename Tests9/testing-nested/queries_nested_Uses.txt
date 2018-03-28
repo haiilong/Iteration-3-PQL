@@ -1,0 +1,25 @@
+3 - Test Uses using stmt synonym with variable name, selecting stmt
+stmt s;
+Select s such that Uses(s,"b")
+1,2,7,9,11,12,17,21,22,23
+5000
+9 - Test Uses using assign synonym with variable synonym, selecting the used variables (i is not used by any assign)
+assign a; variable v;
+Select v such that Uses(a,v)
+a,b,c,d,e,f,g,h,k,i,j,n,x,y
+5000
+13 - Test Uses using assign synonym with wildcard, selecting all while
+assign a; while w;
+Select w such that Uses(a,_)
+1,11,18
+5000
+22 - Test Uses using prog_line synonym with variable name, selecting the prog_line
+prog_line n;
+Select n such that Uses(n,"k")
+1,2,4,9
+5000
+30 - Test Uses using stmt number with wildcard, selecting all while
+while w;
+Select w such that Uses(2,_)
+1,11,18
+5000

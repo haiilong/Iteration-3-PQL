@@ -1,0 +1,30 @@
+3 - Modifies and pattern
+assign a; variable v;
+Select a such that Modifies(a,v) pattern a(v,_"66"_)
+11
+5000
+5 - Modifies and pattern (no result, no common answer)
+assign a; variable v;
+Select a such that Modifies(a,v) pattern a(v,_"7"_)
+
+5000
+8 - Modifies and pattern
+assign a; variable v; while w;
+Select w such that Modifies(a,v) pattern a(v,_"ghid0raH"_)
+4
+5000
+10 - Uses and pattern
+assign a; variable v;
+Select v such that Uses(a,v) pattern a(v,_)
+Godzilla,Mothra
+5000
+14 - Uses and pattern (no result, no common answer)
+assign a; variable v;
+Select a such that Uses(a,v) pattern a(v,_"0101"_)
+
+5000
+20 - Uses and pattern
+assign a; variable v;
+Select a such that Uses(a,v) pattern a(v,_"8"_)
+9
+5000

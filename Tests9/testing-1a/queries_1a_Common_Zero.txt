@@ -1,0 +1,90 @@
+4 - Follows and pattern
+stmt s; assign a;
+Select a such that Follows(11,s) pattern a(_,_"z"_)
+9,10,20
+5000
+8 - Follows and pattern
+stmt s; assign a;
+Select s such that Follows(_,s) pattern a(_,_"75"_)
+2,3,6,7,8,10,11,12,16
+5000
+12 - Follows and pattern
+variable v; assign a;
+Select v such that Follows(12,_) pattern a(v,_"ddd"_)
+y,z
+5000
+19 - Follows* and pattern (no results, Follows* false)
+stmt s; assign a;
+Select s such that Follows*(s,5) pattern a("z",_"75"_)
+
+5000
+27 - Follows* and pattern
+stmt s; assign a;
+Select s such that Follows*(s,_) pattern a(_,_"0"_)
+1,2,3,6,7,8,10,11,12
+5000
+33 - Follows* and pattern
+stmt s; while w; assign a; variable v;
+Select w such that Follows*(s,w) pattern a(v,_"0"_)
+8,12
+5000
+41 - Parent and pattern
+stmt s; assign a;
+Select s such that Parent(13,s) pattern a(_,_"75"_)
+14,15
+5000
+45 - Parent and pattern
+stmt s; assign a; variable v;
+Select s such that Parent(s,_) pattern a(v,_"ddd"_)
+3,8,12,13,16,17,19
+5000
+52 - Parent and pattern (no results, pattern false)
+prog_line n1; assign a;
+Select n1 such that Parent(16,n1) pattern a("quip",_"z"_)
+
+5000
+58 - Parent* and pattern
+stmt s; assign a;
+Select s such that Parent*(16,s) pattern a("ddd",_)
+17,18,19,20
+5000
+67 - Parent* and pattern
+stmt s; while w; assign a; variable v;
+Select w such that Parent*(s,w) pattern a(v,_"0"_)
+17,19
+5000
+68 - Parent* and pattern
+prog_line n1; assign a;
+Select n1 such that Parent*(n1,5) pattern a("ddd",_"z"_)
+3
+5000
+73 - Modifies and pattern
+stmt s; assign a;
+Select s such that Modifies(s,"y") pattern a("z",_"75"_)
+2,11
+5000
+77 - Modifies and pattern
+while w; assign a;
+Select w such that Modifies(w,"ddd") pattern a(_,_"75"_)
+17,19
+5000
+86 - Modifies and pattern
+assign a;
+Select a such that Modifies(15,_) pattern a("x",_"123"_)
+1
+5000
+92 - Uses and pattern
+while w; variable v; assign a;
+Select v such that Uses(w,v) pattern a("ddd",_"z"_)
+w,x,y,z
+5000
+99 - Uses and pattern
+variable v; assign a;
+Select v such that Uses(19,v) pattern a("y",_"2"_)
+x,y,z
+5000
+102 - Uses and pattern
+while w; assign a;
+Select w such that Uses(15,_) pattern a(_,_)
+8,12,17,19
+5000

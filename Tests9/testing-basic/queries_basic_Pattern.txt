@@ -1,0 +1,25 @@
+4 - Test assign pattern using var_name with wildcard
+assign a;
+Select a pattern a("Godzilla",_)
+1,5,9,13,14
+5000
+10 - Test assign pattern using variable synonym with subexpression of var_name
+assign a; variable v;
+Select a pattern a(v,_"KingKong"_)
+1,12,14
+5000
+14 - Test assign pattern using variable synonym with subexpression of constant, selecting the assignment variables
+assign a; variable v;
+Select v pattern a(v,_"6"_)
+GIGAN,Mothra
+5000
+18 - Test assign pattern using var_name with subexpression of var_name (no such LHS var)
+assign a;
+Select a pattern a("JetJaguar",_"KingKong"_)
+
+5000
+21 - Test assign pattern using var_name with subexpression of constant, selecting all while lines
+assign a; while w;
+Select w pattern a("rodAn",_"101"_)
+4
+5000

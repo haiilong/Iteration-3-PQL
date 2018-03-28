@@ -1,0 +1,90 @@
+4 - Follows and pattern
+stmt s; assign a;
+Select a such that Follows(9,s) pattern a(_,_"KingKong"_)
+1,12,14
+5000
+12 - Follows and pattern
+variable v; assign a;
+Select v such that Follows(12,_) pattern a(v,_"rodAn"_)
+baTTra,Godzilla
+5000
+13 - Follows and pattern
+while w; variable v; assign a;
+Select w such that Follows(w,_) pattern a(v,_"101"_)
+4
+5000
+18 - Follows* and pattern
+stmt s; assign a;
+Select s such that Follows*(s,7) pattern a("Mothra",_"3"_)
+1,2,3,4
+5000
+23 - Follows* and pattern
+variable v; assign a;
+Select v such that Follows*(1,7) pattern a(_,_)
+baTTra,ghid0raH,GIGAN,Godzilla,KingKong,Mothra,rodAn
+5000
+33 - Follows* and pattern
+stmt s; while w; assign a; variable v;
+Select w such that Follows*(s,w) pattern a(v,_"8"_)
+4
+5000
+41 - Parent and pattern
+stmt s; assign a;
+Select s such that Parent(8,s) pattern a(_,_"6"_)
+9,10,11
+5000
+45 - Parent and pattern
+stmt s; assign a; variable v;
+Select s such that Parent(s,_) pattern a(v,_"GIGAN"_)
+4,8
+5000
+52 - Parent and pattern (no results, pattern false)
+prog_line n1; assign a;
+Select n1 such that Parent(8,n1) pattern a("JetJaguar",_"Mothra"_)
+
+5000
+56 - Parent* and pattern
+stmt s; assign a;
+Select s such that Parent*(s,11) pattern a(_,_)
+8
+5000
+63 - Parent* and pattern
+stmt s; assign a; variable v;
+Select s such that Parent*(_,s) pattern a(v,_"rodAn"_)
+5,6,9,10,11
+5000
+68 - Parent* and pattern
+prog_line n1; assign a;
+Select n1 such that Parent*(4,5) pattern a("Godzilla",_"KingKong"_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14
+5000
+73 - Modifies and pattern
+stmt s; assign a;
+Select s such that Modifies(s,"Mothra") pattern a("baTTra",_"8"_)
+3,8,10
+5000
+76 - Modifies and pattern
+while w; variable v; assign a;
+Select v such that Modifies(w,v) pattern a("GIGAN",_)
+GIGAN,Godzilla
+5000
+83 - Modifies and pattern
+variable v; assign a;
+Select v such that Modifies(8,v) pattern a("Godzilla",_"456"_)
+Godzilla,Mothra,rodAn
+5000
+89 - Uses and pattern
+stmt s; assign a;
+Select s such that Uses(s,"KingKong") pattern a(_,_"ghid0raH"_)
+1,4,12,14
+5000
+92 - Uses and pattern
+while w; variable v; assign a;
+Select v such that Uses(w,v) pattern a("Godzilla",_"Mothra"_)
+ghid0raH,KingKong
+5000
+99 - Uses and pattern
+variable v; assign a;
+Select v such that Uses(8,v) pattern a("Mothra",_"3"_)
+ghid0raH,Godzilla,Mothra
+5000

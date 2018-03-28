@@ -1,0 +1,18 @@
+procedure Kaiju {
+ 	Godzilla = KingKong;
+ 	rodAn = 101;
+	Mothra = ghid0raH + 3;
+	while KingKong {
+		Godzilla = ghid0raH;
+		GIGAN = 1 * 6;  }
+	baTTra = Godzilla - rodAn;
+	if ghid0raH then {
+		Godzilla = Godzilla + 8;
+		Mothra = 6 - Mothra;
+	}
+	else {
+		rodAn = 66;
+	}
+	baTTra = 8 * KingKong;
+	Godzilla = 456 + 123 - 55 * 101 - 3 + 1;
+	Godzilla = KingKong - rodAn + Mothra * GIGAN + ghid0raH - baTTra; }

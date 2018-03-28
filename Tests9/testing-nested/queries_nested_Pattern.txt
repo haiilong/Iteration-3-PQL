@@ -1,0 +1,25 @@
+4 - Test assign pattern using var_name with wildcard
+assign a;
+Select a pattern a("a",_)
+10,24
+5000
+10 - Test assign pattern using variable synonym with subexpression of var_name
+assign a; variable v;
+Select a pattern a(v,_"g"_)
+4,10,17,20
+5000
+12 - Test assign pattern using variable synonym with subexpression of var_name (no such var)
+assign a; variable v;
+Select a pattern a(v,_"ljx"_)
+
+5000
+20 - Test assign pattern using var_name with subexpression of constant
+assign a;
+Select a pattern a("a",_"5"_)
+10
+5000
+21 - Test assign pattern using var_name with subexpression of constant, selecting all while lines
+assign a; while w;
+Select w pattern a("a",_"5"_)
+1,11,18
+5000

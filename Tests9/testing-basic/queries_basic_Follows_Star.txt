@@ -1,0 +1,25 @@
+4 - Test Follows* using stmt synonym with stmt number
+stmt s;
+Select s such that Follows*(s,4)
+1,2,3
+5000
+8 - Test Follows* with two stmt numbers
+variable v;
+Select v such that Follows*(4,14)
+baTTra,ghid0raH,GIGAN,Godzilla,KingKong,Mothra,rodAn
+5000
+15 - Test Follows* using stmt number with wildcard
+while w;
+Select w such that Follows*(12,_)
+4
+5000
+22 - Test Follows* using assign as follower
+assign a; stmt s;
+Select a such that Follows*(s,a)
+2,3,6,7,10,12,13,14
+5000
+26 - Test Follows* using assign with stmt number
+assign a;
+Select a such that Follows*(3,a)
+7,12,13,14
+5000

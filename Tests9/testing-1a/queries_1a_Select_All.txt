@@ -1,0 +1,30 @@
+1 - Test returning all variables
+variable v;
+Select v
+ddd,i,w,x,y,z
+5000
+2 - Test returning all stmts
+stmt s;
+Select s
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+5000
+3 - Test returning all assignments
+assign a;
+Select a
+1,2,4,5,6,7,9,10,11,14,15,18,20
+5000
+4 - Test returning all while statements
+while w;
+Select w
+8,12,17,19
+5000
+5 - Test returning all constants
+constant c;
+Select c
+0,2,9,75,123,321
+5000
+6 - Test returning all prog_line
+prog_line n1;
+Select n1
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+5000

@@ -1,0 +1,25 @@
+4 - Test Parent using stmt synonym with stmt number
+stmt s;
+Select s such that Parent(s,4)
+2
+5000
+6 - Test child using stmt number with stmt synonym
+stmt s;
+Select s such that Parent(12,s)
+13,14,17,18
+5000
+13 - Test Parent using wildcard with stmt number
+variable v;
+Select v such that Parent(_,5)
+a,b,c,d,e,f,g,h,k,i,j,m,n,x,y,o
+5000
+18 - Test Parent using while as child
+stmt s; while w;
+Select w such that Parent(s,w)
+11,18
+5000
+26 - Test Parent using stmt number and while (no result exists)
+while w;
+Select w such that Parent(21,w)
+
+5000

@@ -1,0 +1,50 @@
+3 - Test Modifies using stmt synonym with variable name, selecting stmt
+stmt s;
+Select s such that Modifies(s,"ddd")
+6,16,17,18,19,20
+5000
+4 - Test Modifies using stmt synonym with variable name, selecting stmt (no such var name in source)
+stmt s;
+Select s such that Modifies(s,"quip")
+
+5000
+7 - Test Modifies using stmt synonym with wildcard, selecting all kinds of stmt
+stmt s1, s2;
+Select s2 such that Modifies(s1,_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+5000
+8 - Test Modifies using assign synonym with variable synonym, selecting all assigns
+assign a; variable v;
+Select a such that Modifies(a,v)
+1,2,4,5,6,7,9,10,11,14,15,18,20
+5000
+10 - Test Modifies using assign synonym with variable name, selecting assign
+assign a;
+Select a such that Modifies(a,"ddd")
+6,18,20
+5000
+13 - Test Modifies using while synonym with variable synonym, selecting all while
+while w7; variable v7;
+Select w7 such that Modifies(w7,v7)
+8,12,17,19
+5000
+17 - Test Modifies using while synonym with variable name, selecting while (no while modifies this var name)
+while w;
+Select w such that Modifies(w,"y")
+
+5000
+21 - Test Modifies using prog_line synonym with variable name, selecting the prog_line
+prog_line n;
+Select n such that Modifies(n,"z")
+7,12,13,14,15
+5000
+24 - Test Modifies using stmt number with variable synonym, selecting the modified variables
+variable v;
+Select v such that Modifies(12,v)
+z
+5000
+28 - Test Modifies using stmt number with wildcard, selecting all while
+while w;
+Select w such that Modifies(15,_)
+8,12,17,19
+5000

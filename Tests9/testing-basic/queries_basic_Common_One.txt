@@ -1,0 +1,90 @@
+2 - Follows and pattern
+assign a; stmt s;
+Select a such that Follows(a,s) pattern a(_,_"ghid0raH"_)
+3,5
+5000
+7 - Follows and pattern
+assign a; stmt s;
+Select s such that Follows(a,s) pattern a(_,_"8"_)
+10,13
+5000
+13 - Follows and pattern
+assign a; while w;
+Select a such that Follows(a,w) pattern a("Mothra",_)
+3
+5000
+18 - Follows* and Pattern
+assign a; stmt s;
+Select a such that Follows*(s,a) pattern a("GIGAN",_)
+6
+5000
+24 - Follows* and Pattern
+assign a; while w;
+Select a such that Follows*(a,w) pattern a("rodAn",_"101"_)
+2
+5000
+29 - Follows* and Pattern
+assign a;
+Select a such that Follows*(a,12) pattern a("Mothra",_)
+3
+5000
+36 - Parent and pattern
+assign a; stmt s;
+Select a such that Parent(s,a) pattern a(_,_"Mothra"_)
+10
+5000
+40 - Parent and pattern
+assign a; stmt s;
+Select a such that Parent(8,a) pattern a(_,_"8"_)
+9
+5000
+44 - Parent and pattern (no result, no common answer)
+assign a; while w;
+Select w such that Parent(w,a) pattern a(_,_"8"_)
+
+5000
+46 - Parent* and pattern
+assign a; stmt s;
+Select s such that Parent*(s,a) pattern a(_,_)
+4,8
+5000
+51 - Parent* and pattern
+assign a; while w;
+Select a such that Parent*(w,a) pattern a("GIGAN",_)
+6
+5000
+58 - Parent* and pattern
+assign a; variable v;
+Select a such that Parent*(8,a) pattern a(_,_"8"_)
+9
+5000
+61 - Modifies and pattern
+stmt s; variable v; assign a;
+Select v such that Modifies(s,v) pattern a(v,_"Godzilla"_)
+baTTra,Godzilla
+5000
+66 - Modifies and pattern
+while w; variable v; assign a;
+Select a such that Modifies(w,v) pattern a(v,_"KingKong"_)
+1,14
+5000
+87 - Modifies and pattern
+assign a;
+Select a such that Modifies(a,_) pattern a("Mothra",_"3"_)
+3
+5000
+99 - Uses and pattern
+prog_line n; variable v; assign a;
+Select n such that Uses(n,v) pattern a(v,_)
+7,8,9,10,14
+5000
+117 - Uses and pattern 
+assign a; variable v;
+Select v such that Uses(a,"Godzilla") pattern a(v,_"8"_)
+Godzilla
+5000
+122 - Uses and pattern 
+assign a;
+Select a such that Uses(a,_) pattern a(_,_"6"_)
+10
+5000

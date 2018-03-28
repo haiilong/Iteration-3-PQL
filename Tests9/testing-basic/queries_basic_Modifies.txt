@@ -1,0 +1,25 @@
+10 - Test Modifies using assign synonym with variable name, selecting assign
+assign a;
+Select a such that Modifies(a,"Mothra")
+3,10
+5000
+15 - Test Modifies using while synonym with variable name, selecting while
+while w;
+Select w such that Modifies(w,"GIGAN")
+4
+5000
+24 - Test Modifies using stmt number with variable synonym, selecting the modified variables
+variable v;
+Select v such that Modifies(14,v)
+Godzilla
+5000
+26 - Test Modifies using stmt number with variable name, selecting all assigns (this stmt does not modify this var)
+assign a;
+Select a such that Modifies(10,"Godzilla")
+
+5000
+27 - Test Modifies using stmt number with variable name, selecting all assigns (no such var)
+assign a;
+Select a such that Modifies(1,"JetJaguar")
+
+5000

@@ -1,0 +1,25 @@
+6 - Test Follows* using stmt number with stmt synonym
+stmt s;
+Select s such that Follows*(13,s)
+14,17
+5000
+13 - Test Follows* using stmt synonym with wildcard (all followed-by)
+stmt s;
+Select s such that Follows*(s,_)
+1,2,3,5,7,8,10,11,13,14,24
+5000
+19 - Test Follows* using while as follower
+stmt s; while w;
+Select w such that Follows*(s,w)
+11
+5000
+23 - Test Follows* using assign as follower
+assign a; stmt s;
+Select a such that Follows*(s,a)
+4,6,7,8,17,20,24
+5000
+26 - Test Follows* using assign with stmt number (no results exist)
+assign a;
+Select a such that Follows*(24,a)
+
+5000

@@ -1,0 +1,34 @@
+procedure nested {
+	while a {
+		if b then {
+			c = d;
+			d = e*f + g + h*k; } 
+		else {
+			e = c;
+			g = h + i*j;}
+		k = b + 6;
+		m = n * (x+y);
+		if k then {
+			a = g*f + 5;
+			while b {
+				if x then {
+					m = i*j + 11;
+					if c then {
+						e = d + c*f; } 
+					else {
+						m = 5;}
+					x = g + 5 + a*b + c; } 
+				else {
+					while g {
+						h = a*6;}}}
+			n = c + g;} 
+		else {
+			if x then {
+				n = b + e*6; }
+			else {
+				x = (a+b) * (c+d);}}}
+	a = a;
+	if a then {
+		b = c*2 + 1;}
+	else {
+		o = d + 1;}}

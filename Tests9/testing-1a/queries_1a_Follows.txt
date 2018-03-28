@@ -1,0 +1,50 @@
+1 - Return all followed-by
+stmt s1, s2;
+Select s1 such that Follows(s1,s2)
+1,2,3,6,7,8,10,11,12
+5000
+3 - Test Follows where the same stmt Follows itself (no results exist)
+stmt s;
+Select s such that Follows(s,s)
+
+5000
+6 - Test Follows using stmt number with stmt synonym
+stmt s;
+Select s such that Follows(10,s)
+11
+5000
+7 - Test Follows using stmt number with stmt synonym (no results exist)
+stmt s;
+Select s such that Follows(9,s)
+
+5000
+8 - Test Follows with two stmt numbers
+variable v;
+Select v such that Follows(2,3)
+ddd,i,w,x,y,z
+5000
+9 - Test Follows with two stmt numbers (no results exist)
+variable v;
+Select v such that Follows(18, 19)
+
+5000
+13 - Test Follows using wildcard with stmt number
+variable v;
+Select v such that Follows(_,11)
+ddd,i,w,x,y,z
+5000
+14 - Test Follows using wildcard with stmt number (no results exist)
+variable v;
+Select v such that Follows(_,5)
+
+5000
+22 - Test Follows using assign as follower
+assign a; stmt s;
+Select a such that Follows(s,a)
+2,6,7,10,11
+5000
+24 - Test Follows using while with assign
+assign a; while w;
+Select a such that Follows(w,a)
+10
+5000

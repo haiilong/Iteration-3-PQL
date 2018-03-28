@@ -1,0 +1,5 @@
+procedure First {
+	d = 20;
+	c = d;
+	y = 10;
+}

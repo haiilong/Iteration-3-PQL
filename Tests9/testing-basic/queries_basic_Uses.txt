@@ -1,0 +1,25 @@
+6 - Test Uses using stmt synonym with wildcard, selecting stmt
+stmt s;
+Select s such that Uses(s,_)
+1,3,4,5,7,8,9,10,12,14
+5000
+10 - Test Uses using assign synonym with variable name, selecting assign
+assign a;
+Select a such that Uses(a,"KingKong")
+1,12,14
+5000
+11 - Test Uses using assign synonym with variable name, selecting assign (var name with 1 wrong character)
+assign a;
+Select a such that Uses(a,"ghidOraH")
+
+5000
+22 - Test Uses using prog_line synonym with variable name, selecting the prog_line
+prog_line n;
+Select n such that Uses(n,"Godzilla")
+7,8,9
+5000
+28 - Test Uses using stmt number with variable name, selecting all assigns (this stmt does not use this var)
+assign a;
+Select a such that Uses(10,"rodAn")
+
+5000

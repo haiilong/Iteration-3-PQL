@@ -1,0 +1,25 @@
+1 - Returning all parents
+stmt s1, s2;
+Select s1 such that Parent (s1,s2)
+4,8
+5000
+2 - Returning all children
+stmt s1, s2;
+Select s2 such that Parent(s1,s2)
+5,6,9,10,11
+5000
+6 - Test child using stmt number with stmt synonym
+stmt s;
+Select s such that Parent(8,s)
+9,10,11
+5000
+23 - Test Parent using while and assign
+assign a; while w;
+Select a such that Parent(w,a)
+5,6
+5000
+26 - Test Parent using stmt number and while (no result exists)
+while w;
+Select w such that Parent(3,w)
+
+5000

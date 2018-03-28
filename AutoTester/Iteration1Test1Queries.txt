@@ -1,0 +1,20 @@
+1 - get all assignment statements
+assign a;
+Select a
+1,2,3
+5000
+2 - get all procedures
+procedure p;
+Select p
+First
+5000
+3 - get all statements
+stmt s;
+Select s
+1,2 
+5000
+4 - get all variables
+variable v;
+Select v
+c,d,y
+5000

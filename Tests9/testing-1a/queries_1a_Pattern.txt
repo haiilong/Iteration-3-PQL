@@ -1,0 +1,50 @@
+2 - Test assign pattern using wildcard with subexpression of var_name
+assign a;
+Select a pattern a(_,_"z"_)
+9,10,20
+5000
+3 - Test assign pattern using wildcard with subexpression of var_name (no such var)
+assign a;
+Select a pattern a(_,_"quip"_)
+
+5000
+4 - Test assign pattern using var_name with wildcard
+assign a;
+Select a pattern a("ddd",_)
+6,18,20
+5000
+6 - Test assign pattern using wildcard with subexpression of constant
+assign a;
+Select a pattern a(_,_"75"_)
+14,15
+5000
+7 - Test assign pattern using wildcard with subexpression of constant (no such constant)
+assign a;
+Select a pattern a(_,_"9269848"_)
+
+5000
+11 - Test assign pattern using variable synonym with subexpression of var_name, selecting all assignment variables
+assign a; variable v;
+Select v pattern a(v,_"ddd"_)
+y,z
+5000
+14 - Test assign pattern using variable synonym with subexpression of constant, selecting the assignment variables
+assign a; variable v;
+Select v pattern a(v,_"0"_)
+ddd,y
+5000
+16 - Test assign pattern using var_name with subexpression of var_name
+assign a;
+Select a pattern a("ddd",_"z"_)
+20
+5000
+17 - Test assign pattern using var_name with subexpression of var_name, selecting all stmt number
+assign a; stmt s;
+Select s pattern a("ddd",_"z"_)
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+5000
+21 - Test assign pattern using var_name with subexpression of constant, selecting all while lines
+assign a; while w;
+Select w pattern a("z",_"75"_)
+8,12,17,19
+5000
