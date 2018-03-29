@@ -200,6 +200,26 @@ public:
         Assert::IsFalse(qpp.validate("assign a, c#13, d, e, f; Select e.procName"));
     }
 
+    TEST_METHOD(testTupleSelectQuery) {
+        Assert::IsTrue(qpp.validate("assign a, c#13, d, e, f; Select <a.stmt#, d, e, f.stmt#>"));
+        Assert::IsTrue(qpp.validate("assign a, c#13, d, e, f; Select <a,d>"));
+
+        // undeclared synonym
+        Assert::IsFalse(qpp.validate("assign a, c#13, d, e, f; Select <a.stmt#, g, e, f.stmt#>"));
+
+        // wrong matching attribute
+        Assert::IsFalse(qpp.validate("assign a, c#13, d, e, f; Select <a.stmt#, g, e.value, f.stmt#>"));
+
+        // check the content of the query object
+        Assert::IsTrue(qpp.validate("assign a, c#13, d, e, f; call c; Select <a.stmt#, d, e, f.stmt#, c>"));
+        qo = qpp.getQueryObject();
+        Clause select = qo.getSelectClause();
+        vector<Clause::Type> argType = { Clause::Type::ASSIGN, Clause::Type::ASSIGN, Clause::Type::ASSIGN, Clause::Type::ASSIGN, Clause::Type::CALL };
+        vector<string> argName = {"a", "d", "e", "f", "c"};
+        Assert::IsTrue(select.getTupleArgTypes() == argType);
+        Assert::IsTrue(select.getTupleArgNames() == argName);
+    }
+
     TEST_METHOD(testOneFollowsQuery) {
         // all 9 standards true (syn-stmt, _, integer) x(syn-stmt, _, integer)
         Assert::IsTrue(qpp.validate("stmt s; assign a; Select s such that Follows(s,a)"));
@@ -716,6 +736,99 @@ public:
         Assert::IsFalse(qpp.validate("if i; variable v; Select i pattern i(v,\"123\")"));
         Assert::IsFalse(qpp.validate("if i; variable v; Select i pattern i(v,_)"));
         Assert::IsFalse(qpp.validate("if i; variable v; Select i pattern i(v,_, _ ,_)"));
+    }
+
+    TEST_METHOD(testOneWithClause) {
+        // both sides are integers
+        Assert::IsTrue(qpp.validate("if i; Select i with i.stmt# = 3"));
+        Assert::IsTrue(qpp.validate("if i; Select i with 3 = i.stmt#"));
+        Assert::IsTrue(qpp.validate("if i; stmt s; Select i with i.stmt# = s.stmt#"));
+        Assert::IsTrue(qpp.validate("if i; stmt s; Select i with s.stmt# = i.stmt#"));
+        Assert::IsTrue(qpp.validate("stmt s; assign a; Select s with s.stmt# = a.stmt#"));
+        Assert::IsTrue(qpp.validate("stmt s; assign a; Select s with a.stmt# = s.stmt#"));
+        Assert::IsTrue(qpp.validate("stmt s; while w; Select s with s.stmt# = w.stmt#"));
+        Assert::IsTrue(qpp.validate("stmt s; while w; Select s with w.stmt# = s.stmt#"));
+        Assert::IsTrue(qpp.validate("stmt s; call c; Select s with s.stmt# = c.stmt#"));
+        Assert::IsTrue(qpp.validate("stmt s; call c; Select s with c.stmt# = s.stmt#"));
+        Assert::IsTrue(qpp.validate("stmt s; prog_line n; Select s with s.stmt# = n"));
+        Assert::IsTrue(qpp.validate("stmt s; prog_line n; Select s with n = s.stmt#"));
+        Assert::IsTrue(qpp.validate("stmt s; constant c; Select s with s.stmt# = c.value"));
+        Assert::IsTrue(qpp.validate("stmt s; constant c; Select s with c.value = s.stmt#"));
+
+        // both sides are strings
+        Assert::IsTrue(qpp.validate("procedure p; call c; Select p with p.procName = c.procName"));
+        Assert::IsTrue(qpp.validate("procedure p; call c; Select p with c.procName = p.procName"));
+        Assert::IsTrue(qpp.validate("variable v; call c; Select c with c.procName = v.varName"));
+        Assert::IsTrue(qpp.validate("variable v; call c; Select c with v.varName = c.procName"));
+        Assert::IsTrue(qpp.validate("variable v; Select v with v.varName = \"asdz\""));
+        Assert::IsTrue(qpp.validate("variable v; Select v with \"asdz\" = v.varName"));
+
+        // int vs string
+        Assert::IsFalse(qpp.validate("procedure p; Select p with p.procName = 5"));
+
+        // test content of the object
+        Assert::IsTrue(qpp.validate("procedure p; call c; Select p with p.procName = c.procName"));
+        qo = qpp.getQueryObject();
+        Clause with = qo.getClauses().at(0);
+        Assert::IsTrue(with.getRelation() == Clause::Relation::WITH);
+        Assert::IsTrue(with.getFirstType() == Clause::Type::PROCEDURE);
+        Assert::IsTrue(with.getSecondType() == Clause::Type::CALLPROC);
+        Assert::IsTrue(with.getFirstArg() == "p");
+        Assert::IsTrue(with.getSecondArg() == "c");
+
+        // test content of the object
+        Assert::IsTrue(qpp.validate("stmt s; prog_line n; Select s with s.stmt# = n"));
+        qo = qpp.getQueryObject();
+        with = qo.getClauses().at(0);
+        Assert::IsTrue(with.getRelation() == Clause::Relation::WITH);
+        Assert::IsTrue(with.getFirstType() == Clause::Type::STMT);
+        Assert::IsTrue(with.getSecondType() == Clause::Type::PROG_LINE);
+        Assert::IsTrue(with.getFirstArg() == "s");
+        Assert::IsTrue(with.getSecondArg() == "n");
+
+        // test content of the object
+        Assert::IsTrue(qpp.validate("stmt s; constant c; Select s with c.value = 10"));
+        qo = qpp.getQueryObject();
+        with = qo.getClauses().at(0);
+        Assert::IsTrue(with.getRelation() == Clause::Relation::WITH);
+        Assert::IsTrue(with.getFirstType() == Clause::Type::CONSTANT);
+        Assert::IsTrue(with.getSecondType() == Clause::Type::INTEGER);
+        Assert::IsTrue(with.getFirstArg() == "c");
+        Assert::IsTrue(with.getSecondArg() == "10");
+
+        // test content of the object
+        Assert::IsTrue(qpp.validate("stmt s; constant c; Select s with 10 = c.value"));
+        qo = qpp.getQueryObject();
+        with = qo.getClauses().at(0);
+        Assert::IsTrue(with.getRelation() == Clause::Relation::WITH);
+        Assert::IsTrue(with.getFirstType() == Clause::Type::CONSTANT);
+        Assert::IsTrue(with.getSecondType() == Clause::Type::INTEGER);
+        Assert::IsTrue(with.getFirstArg() == "c");
+        Assert::IsTrue(with.getSecondArg() == "10");
+
+        // test content of the object
+        Assert::IsTrue(qpp.validate("call c; Select c with c.procName = \"xD\""));
+        qo = qpp.getQueryObject();
+        with = qo.getClauses().at(0);
+        Assert::IsTrue(with.getRelation() == Clause::Relation::WITH);
+        Assert::IsTrue(with.getFirstType() == Clause::Type::CALLPROC);
+        Assert::IsTrue(with.getSecondType() == Clause::Type::IDENT);
+        Assert::IsTrue(with.getFirstArg() == "c");
+        Assert::IsTrue(with.getSecondArg() == "xD");
+
+        // test content of the object
+        Assert::IsTrue(qpp.validate("call c; Select c with \"xD\" = c.procName"));
+        qo = qpp.getQueryObject();
+        with = qo.getClauses().at(0);
+        Assert::IsTrue(with.getRelation() == Clause::Relation::WITH);
+        Assert::IsTrue(with.getFirstType() == Clause::Type::CALLPROC);
+        Assert::IsTrue(with.getSecondType() == Clause::Type::IDENT);
+        Assert::IsTrue(with.getFirstArg() == "c");
+        Assert::IsTrue(with.getSecondArg() == "xD");
+    }
+
+    TEST_METHOD(testRandom) {
+        Assert::IsFalse(qpp.validate("procedure p; call c; Select  "));
     }
     };
 }

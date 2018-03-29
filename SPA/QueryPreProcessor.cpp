@@ -166,19 +166,44 @@ bool QueryPreProcessor::parseQueryClause(const string &queryClause) {
 * Validate select clause, return true or false. Also update Query Object.
 */
 bool QueryPreProcessor::validateSelectCl() {
-    if (selectCl == "BOOLEAN") {
-        queryObject.addSelectClause("boolean", "BOOLEAN");
-        return true;
+    if (selectCl[0] == '<') {
+        if (selectCl.size() < 5) {
+            return false;
+        }
+        if (selectCl[selectCl.size() - 1] != '>') {
+            return false;
+        }
+        selectCl = selectCl.substr(1, selectCl.size()-2);
+        vector<string> args = StringUtility::split(selectCl, ",");
+        vector<string> argName;
+        vector<string> argType;
+        for (auto item : args) {
+            string type = getSelectType(item);
+
+            if (type == "invalid") {
+                return false;
+            }
+
+           argName.push_back(getSynFromAttr(item));
+           argType.push_back(type);
+        }
+        queryObject.addSelectTupleClause(argType, argName);
     }
+    else {
+        if (selectCl == "BOOLEAN") {
+            queryObject.addSelectClause("boolean", "BOOLEAN");
+            return true;
+        }
 
-    string select = getSelectType(selectCl);
+        string select = getSelectType(selectCl);
 
-    if (select == "invalid") {
-        return false;
+        if (select == "invalid") {
+            return false;
+        }
+
+        // add result clause to query object
+        queryObject.addSelectClause(select, getSynFromAttr(selectCl));
     }
-
-    // add result clause to query object
-    queryObject.addSelectClause(select, getSynFromAttr(selectCl));
     return true;
 }
 
@@ -317,18 +342,10 @@ bool QueryPreProcessor::validateWithCl(const string & s) {
         return false;
     }
 
-    if (arg1 == arg2) {
-        return false;
-    }
+    unordered_set<string> intSet = { "prog_line", "stmt", "assign", "while", "if", "constant", "integer", "call" };
+    unordered_set<string> stringSet = { "procedure", "callproc", "variable", "ident" };
 
-    unordered_set<string> filterSet = { "stmt", "assign", "while", "if" };
-    unordered_set<string> intSet = { "prog_line", "stmt", "assign", "while", "if", "constant", "integer" };
-    unordered_set<string> stringSet = { "procedure", "callproc", "varName", "ident" };
-
-    if (filterSet.find(arg1) != filterSet.end() && filterSet.find(arg2) != filterSet.end()) {
-        return false;
-    }
-    else if (intSet.find(arg1) != intSet.end()) {
+    if (intSet.find(arg1) != intSet.end()) {
         if (intSet.find(arg2) == intSet.end()) {
             return false;
         }
@@ -338,11 +355,15 @@ bool QueryPreProcessor::validateWithCl(const string & s) {
             return false;
         }
     }
+    else {
+        return false;
+    }
+
     if (arg1 == "integer" || arg1 == "ident") {
-        queryObject.addClause("with", arg2, getSynFromAttr(args[1]), arg1, getSynFromAttr(args[0]));
+        queryObject.addClause("With", arg2, getSynFromAttr(args[1]), arg1, getSynFromAttr(args[0]));
     }
     else {
-        queryObject.addClause("with", arg1, getSynFromAttr(args[0]), arg2, getSynFromAttr(args[1]));
+        queryObject.addClause("With", arg1, getSynFromAttr(args[0]), arg2, getSynFromAttr(args[1]));
     }
     return true;
 }
@@ -614,7 +635,12 @@ string QueryPreProcessor::getWithType(const string &s) {
 string QueryPreProcessor::getSynFromAttr(const string &s) {
     int dot = s.find_first_of(".");
     if (dot == -1) {
-        return s;
+        if (isIdent(s)) {
+            return convertIdent(s);
+        }
+        else {
+            return s;
+        }
     }
     return s.substr(0, dot);
 }
