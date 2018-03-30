@@ -4,9 +4,6 @@
     <ClCompile Include="ResultTable.cpp">
       <Filter>Source Files\PQL</Filter>
     </ClCompile>
-    <ClCompile Include="patternTable.cpp">
-      <Filter>Source Files\Frontend</Filter>
-    </ClCompile>
     <ClCompile Include="QueryObject.cpp">
       <Filter>Source Files\PQL</Filter>
     </ClCompile>
@@ -24,6 +21,15 @@
     </ClCompile>
     <ClCompile Include="StringUtility.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClauseGroup.cpp">
+      <Filter>Source Files\PQL</Filter>
+    </ClCompile>
+    <ClCompile Include="UnionFind.cpp">
+      <Filter>Source Files\PQL</Filter>
+    </ClCompile>
+    <ClCompile Include="QueryOptimizer.cpp">
+      <Filter>Source Files\PQL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +56,15 @@
     </ClInclude>
     <ClInclude Include="SourceToken.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClauseGroup.h">
+      <Filter>Header Files\PQL</Filter>
+    </ClInclude>
+    <ClInclude Include="UnionFind.h">
+      <Filter>Header Files\PQL</Filter>
+    </ClInclude>
+    <ClInclude Include="QueryOptimizer.h">
+      <Filter>Header Files\PQL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

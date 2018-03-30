@@ -2,10 +2,14 @@
 
 #include<string>
 #include<vector>
+#include<unordered_set>
+
+using namespace std;
 
 class Clause {
 public:
-    Clause() = default;
+    Clause();
+    ~Clause();
 
     enum class Relation {
         AFFECTS,
@@ -52,56 +56,66 @@ public:
     };
 
     /*
-        Method to set the relation, argument type & name within this clause object for a SELECT clause.
+    Method to set the relation, argument type & name within this clause object for a SELECT clause.
     */
-    void addSelectArg(std::string type, std::string name);
+    void addSelectArg(string type, string name);
 
     /*
-        Method to set the relation, arguments types & names within this clause object for a SELECT_TUPLE clause.
+    Method to set the relation, arguments types & names within this clause object for a SELECT_TUPLE clause.
     */
-    void addSelectTupleArgs(std::vector<std::string> types, std::vector<std::string> names);
+    void addSelectTupleArgs(vector<string> types, vector<string> names);
 
     /*
-        The following methods are for setting the clause relation, and for setting the 4 arguments' names and types.
+    The following methods are for setting the clause relation, and for setting the 4 arguments' names and types.
     */
-    void setRelation(std::string relationStr);
-    void setArgumentNames(std::string name1, std::string name2, std::string name3);
-    void setArgumentTypes(std::string type1, std::string type2, std::string type3);
+    void setRelation(string relationStr, string type1, string type2, string type3, string name1, string name2, string name3);
 
     /*
-        Method for getting the relation that this clause represents
+    Method for getting the relation that this clause represents
     */
     Relation getRelation();
 
     /*
-        The following methods are for getting the name or type
-        of args 1 to 4 respectively.
+    The following methods are for getting the name or type
+    of args 1 to 4 respectively.
     */
-    std::string getFirstArg();
-    std::string getSecondArg();
-    std::string getThirdArg();
+    string getFirstArg();
+    string getSecondArg();
+    string getThirdArg();
     Clause::Type getFirstType();
     Clause::Type getSecondType();
     Clause::Type getThirdType();
 
     /*
-        Methods to return the respective vectors containing the argument types and names.
-        To be used if the selection target is a tuple.
+    Methods to return the respective vectors containing the argument types and names.
+    To be used if the selection target is a tuple.
     */
-    std::vector<Clause::Type> getTupleArgTypes();
-    std::vector<std::string> getTupleArgNames();
+    vector<Clause::Type> getTupleArgTypes();
+    vector<string> getTupleArgNames();
 
-    Type convertStringToArgType(const std::string str);
-    std::string convertArgTypeToString(const Type type);
-    Relation convertStringToRelation(const std::string str);
-    std::string convertRelationToString(const Relation type);
+    Type convertStringToArgType(const string str);
+    string convertArgTypeToString(const Type type);
+    Relation convertStringToRelation(const string str);
+    string convertRelationToString(const Relation type);
+
+    // for optimizer
+    int getNoOfSyonyms();
+    vector<string> getSynonyms();
+
+    string toString();
 
 private:
     Relation relation;
 
     Type firstArgType, secondArgType, thirdArgType;
-    std::string firstArgName, secondArgName, thirdArgName;
+    string firstArgName, secondArgName, thirdArgName;
 
-    std::vector<Clause::Type> tupleArgTypes;
-    std::vector<std::string> tupleArgNames;
+    vector<Clause::Type> tupleArgTypes;
+    vector<string> tupleArgNames;
+
+    // for optimizer
+    int noOfSynonyms = 0;
+    vector<string> synonyms;
+
+    bool isSynonym(Type t);
 };

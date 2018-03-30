@@ -1,41 +1,104 @@
 #include "QueryObject.h"
 
-void QueryObject::addSelectClause(std::string type, std::string name) {
+QueryObject::QueryObject() {}
+
+QueryObject::~QueryObject() {}
+
+void QueryObject::addSelectClause(string type, string name) {
     Clause newSelectClause = Clause();
     newSelectClause.addSelectArg(type, name);
     selectClause = newSelectClause;
 }
 
-void QueryObject::addSelectTupleClause(std::vector<std::string> types, std::vector<std::string> names) {
+void QueryObject::addSelectTupleClause(vector<string> types, vector<string> names) {
     Clause newSelectClause = Clause();
     newSelectClause.addSelectTupleArgs(types, names);
     selectClause = newSelectClause;
 }
 
-void QueryObject::addClause(std::string clauseRelation, std::string argLeftType, std::string argLeftName, std::string argRightType, std::string argRightName) {
-    Clause newClause = Clause();
-    newClause.setRelation(clauseRelation);
-    newClause.setArgumentTypes(argLeftType, argRightType, "empty");
-    newClause.setArgumentNames(argLeftName, argRightName, "");
-    clauses.push_back(newClause);
+void QueryObject::addClause(string clauseRelation, string argLeftType, string argLeftName, string argRightType, string argRightName) {
+    Clause clause = Clause();
+    clause.setRelation(clauseRelation, argLeftType, argRightType, "empty", argLeftName, argRightName, "");
+    //clauses.push_back(clause);
+
+    if (clause.getNoOfSyonyms() == 0) {
+        booleanGroup.push_back(clause);
+    }
+    else {
+        genericGroup.push_back(clause);
+        for (auto item : clause.getSynonyms()) {
+            if (allSynonyms.find(item) == allSynonyms.end()) {
+                allSynonyms.insert(item);
+            }
+        }
+    }
+
 }
 
-void QueryObject::addPatternClause(std::string patternType, std::string arg1Type, std::string arg1Name, std::string arg2Type, std::string arg2Name, std::string arg3Type, std::string arg3Name) {
-    Clause newClause = Clause();
-    newClause.setRelation(patternType);
-    newClause.setArgumentTypes(arg1Type, arg2Type, arg3Type);
-    newClause.setArgumentNames(arg1Name, arg2Name, arg3Name);
-    clauses.push_back(newClause);
+void QueryObject::addPatternClause(string patternType, string arg1Type, string arg1Name, string arg2Type, string arg2Name, string arg3Type, string arg3Name) {
+    Clause clause = Clause();
+    clause.setRelation(patternType, arg1Type, arg2Type, arg3Type, arg1Name, arg2Name, arg3Name);
+    //clauses.push_back(clause);
+    if (clause.getNoOfSyonyms() == 0) {
+        booleanGroup.push_back(clause);
+    }
+    else {
+        genericGroup.push_back(clause);
+        for (auto item : clause.getSynonyms()) {
+            if (allSynonyms.find(item) == allSynonyms.end()) {
+                allSynonyms.insert(item);
+            }
+        }
+    }
 }
 
 Clause QueryObject::getSelectClause() {
     return selectClause;
 }
 
-std::vector<Clause> QueryObject::getClauses() {
+vector<Clause> QueryObject::getClauses() {
     return clauses;
 }
 
 void QueryObject::clear() {
-    clauses.clear();
+    //clauses.clear();
+    allSynonyms.clear();
+    genericGroup.clear();
+    booleanGroup.clear();
+}
+
+unordered_set<string> QueryObject::getAllSynonyms() {
+    return allSynonyms;
+}
+
+vector<Clause> QueryObject::getGenericClauses() {
+    return genericGroup;
+}
+
+vector<Clause> QueryObject::getBooleanClauses() {
+    return booleanGroup;
+}
+
+void QueryObject::setBooleanGroup(ClauseGroup booleanGroup) {
+    booleanClauses = booleanGroup;
+}
+
+void QueryObject::setGenericGroup(vector<ClauseGroup> genericGroup) {
+    genericClauses = genericGroup;
+}
+
+void QueryObject::setSelectGroup(ClauseGroup selectGroup) {
+    selectClauses = selectGroup;
+}
+
+ClauseGroup QueryObject::getBooleanGroup() {
+    return booleanClauses;
+}
+
+vector<ClauseGroup> QueryObject::getGenericGroup() {
+    return genericClauses;
+}
+
+ClauseGroup QueryObject::getSelectGroup() {
+    return selectClauses;
 }

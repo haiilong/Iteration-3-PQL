@@ -215,7 +215,7 @@ public:
         qo = qpp.getQueryObject();
         Clause select = qo.getSelectClause();
         vector<Clause::Type> argType = { Clause::Type::ASSIGN, Clause::Type::ASSIGN, Clause::Type::ASSIGN, Clause::Type::ASSIGN, Clause::Type::CALL };
-        vector<string> argName = { "a", "d", "e", "f", "c" };
+        vector<string> argName = {"a", "d", "e", "f", "c"};
         Assert::IsTrue(select.getTupleArgTypes() == argType);
         Assert::IsTrue(select.getTupleArgNames() == argName);
     }
@@ -841,7 +841,7 @@ public:
         ));
 
         qo = qpp.getQueryObject();
-        unordered_set<string> expected({ "w","v2","a","s","i","v1" });
+        unordered_set<string> expected({"w","v2","a","s","i","v1"});
         Assert::IsTrue(qo.getAllSynonyms() == expected);
     }
     };

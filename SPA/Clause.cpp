@@ -1,6 +1,9 @@
 #include "Clause.h"
 
-void Clause::addSelectArg(std::string type, std::string name) {
+Clause::Clause() {}
+Clause::~Clause() {}
+
+void Clause::addSelectArg(string type, string name) {
     relation = Clause::Relation::SELECT;
 
     firstArgType = convertStringToArgType(type);
@@ -10,16 +13,19 @@ void Clause::addSelectArg(std::string type, std::string name) {
     secondArgName = "";
     thirdArgType = Clause::Type::EMPTY;
     thirdArgName = "";
+
+    synonyms.push_back(name);
+    noOfSynonyms = 1;
 }
 
-void Clause::addSelectTupleArgs(std::vector<std::string> types, std::vector<std::string> names) {
+void Clause::addSelectTupleArgs(vector<string> types, vector<string> names) {
     relation = Clause::Relation::SELECT_TUPLE;
 
-    for (std::string typeStr : types) {
+    for (string typeStr : types) {
         tupleArgTypes.push_back(convertStringToArgType(typeStr));
     }
 
-    for (std::string nameStr : names) {
+    for (string nameStr : names) {
         tupleArgNames.push_back(nameStr);
     }
 
@@ -29,37 +35,45 @@ void Clause::addSelectTupleArgs(std::vector<std::string> types, std::vector<std:
     secondArgName = "";
     thirdArgType = Clause::Type::EMPTY;
     thirdArgName = "";
+
+    synonyms = names;
+    noOfSynonyms = names.size();
 }
 
-void Clause::setRelation(std::string relationStr) {
+void Clause::setRelation(string relationStr, string type1, string type2, string type3, string name1, string name2, string name3) {
     relation = convertStringToRelation(relationStr);
-}
-
-void Clause::setArgumentNames(std::string name1, std::string name2, std::string name3) {
     firstArgName = name1;
     secondArgName = name2;
     thirdArgName = name3;
-}
-
-void Clause::setArgumentTypes(std::string type1, std::string type2, std::string type3) {
     firstArgType = convertStringToArgType(type1);
     secondArgType = convertStringToArgType(type2);
     thirdArgType = convertStringToArgType(type3);
+
+    noOfSynonyms = 0; //to safeguard
+    if (isSynonym(firstArgType)) {
+        noOfSynonyms += 1;
+        synonyms.push_back(firstArgName);
+    }
+    if (isSynonym(secondArgType)) {
+        noOfSynonyms += 1;
+        synonyms.push_back(secondArgName);
+    }
+
 }
 
 Clause::Relation Clause::getRelation() {
     return relation;
 }
 
-std::string Clause::getFirstArg() {
+string Clause::getFirstArg() {
     return firstArgName;
 }
 
-std::string Clause::getSecondArg() {
+string Clause::getSecondArg() {
     return secondArgName;
 }
 
-std::string Clause::getThirdArg() {
+string Clause::getThirdArg() {
     return thirdArgName;
 }
 
@@ -75,15 +89,15 @@ Clause::Type Clause::getThirdType() {
     return thirdArgType;
 }
 
-std::vector<Clause::Type> Clause::getTupleArgTypes() {
+vector<Clause::Type> Clause::getTupleArgTypes() {
     return tupleArgTypes;
 }
 
-std::vector<std::string> Clause::getTupleArgNames() {
+vector<string> Clause::getTupleArgNames() {
     return tupleArgNames;
 }
 
-Clause::Relation Clause::convertStringToRelation(const std::string str) {
+Clause::Relation Clause::convertStringToRelation(const string str) {
     if (str == "Affects") return Clause::Relation::AFFECTS;
     else if (str == "Affects*") return Clause::Relation::AFFECTS_T;
     else if (str == "Assign") return Clause::Relation::ASSIGN;
@@ -105,7 +119,7 @@ Clause::Relation Clause::convertStringToRelation(const std::string str) {
     else return Clause::Relation::INVALID_CLAUSE;
 }
 
-std::string Clause::convertRelationToString(const Relation type) {
+string Clause::convertRelationToString(const Relation type) {
     if (type == Clause::Relation::AFFECTS) return "Affects";
     else if (type == Clause::Relation::AFFECTS_T) return "Affects*";
     else if (type == Clause::Relation::ASSIGN) return "Assign";
@@ -127,7 +141,47 @@ std::string Clause::convertRelationToString(const Relation type) {
     else return "Invalid_clause";
 }
 
-Clause::Type Clause::convertStringToArgType(const std::string str) {
+int Clause::getNoOfSyonyms() {
+    return noOfSynonyms;
+}
+
+vector<string> Clause::getSynonyms() {
+    return synonyms;
+}
+
+bool Clause::isSynonym(Type t) {
+    switch (t) {
+    case Type::ASSIGN:
+    case Type::CALL:
+    case Type::CALLPROC:
+    case Type::CONSTANT:
+    case Type::IF:
+    case Type::PROCEDURE:
+    case Type::PROG_LINE:
+    case Type::STMT:
+    case Type::STMT_LST:
+    case Type::VARIABLE:
+    case Type::WHILE:
+        return true;
+    default:
+        return false;
+    }
+}
+
+string Clause::toString() {
+    switch (relation) {
+    case Relation::IF:
+    case Relation::ASSIGN:
+    case Relation::WHILE:
+        return firstArgName + " (" + secondArgName + ", " + secondArgName + ")";
+    case Relation::WITH:
+        return firstArgName + " = " + secondArgName;
+    default:
+        return convertRelationToString(relation) + " (" + firstArgName + ", " + secondArgName + ")";
+    }
+}
+
+Clause::Type Clause::convertStringToArgType(const string str) {
     if (str == "assign") return Clause::Type::ASSIGN;
     else if (str == "boolean") return Clause::Type::BOOLEAN;
     else if (str == "call") return Clause::Type::CALL;
@@ -149,7 +203,7 @@ Clause::Type Clause::convertStringToArgType(const std::string str) {
     else return Clause::Type::INVALID_ARG;
 }
 
-std::string Clause::convertArgTypeToString(const Type type) {
+string Clause::convertArgTypeToString(const Type type) {
     if (type == Clause::Type::ASSIGN) return "assign";
     else if (type == Clause::Type::BOOLEAN) return "boolean";
     else if (type == Clause::Type::CALL) return "call";

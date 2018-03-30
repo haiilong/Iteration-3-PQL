@@ -12,22 +12,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Clause.h" />
+    <ClInclude Include="ClauseGroup.h" />
     <ClInclude Include="Pair.h" />
     <ClInclude Include="ExpressionUtility.h" />
     <ClInclude Include="QueryObject.h" />
+    <ClInclude Include="QueryOptimizer.h" />
     <ClInclude Include="QueryPreProcessor.h" />
     <ClInclude Include="ResultTable.h" />
     <ClInclude Include="SourceToken.h" />
     <ClInclude Include="StringUtility.h" />
+    <ClInclude Include="UnionFind.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clause.cpp" />
+    <ClCompile Include="ClauseGroup.cpp" />
     <ClCompile Include="ExpressionUtility.cpp" />
     <ClCompile Include="QueryObject.cpp" />
+    <ClCompile Include="QueryOptimizer.cpp" />
     <ClCompile Include="QueryPreProcessor.cpp" />
     <ClCompile Include="SourceToken.cpp" />
     <ClCompile Include="StringUtility.cpp" />
     <ClCompile Include="ResultTable.cpp" />
+    <ClCompile Include="UnionFind.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DC21A1EA-D2C6-4D14-A2B4-E025B64BDE81}</ProjectGuid>
