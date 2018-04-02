@@ -8,12 +8,19 @@ void QueryObject::addSelectClause(string type, string name) {
     Clause newSelectClause = Clause();
     newSelectClause.addSelectArg(type, name);
     selectClause = newSelectClause;
+
+    selectSynonyms.push_back(name);
+    selectSynonymMap[name] = type;
 }
 
 void QueryObject::addSelectTupleClause(vector<string> types, vector<string> names) {
     Clause newSelectClause = Clause();
     newSelectClause.addSelectTupleArgs(types, names);
     selectClause = newSelectClause;
+    for (size_t i = 0; i < types.size(); i++) {
+        selectSynonyms.push_back(names[i]);
+        selectSynonymMap[names[i]] = types[i];
+    }
 }
 
 void QueryObject::addClause(string clauseRelation, string argLeftType, string argLeftName, string argRightType, string argRightName) {
@@ -65,6 +72,11 @@ void QueryObject::clear() {
     allSynonyms.clear();
     genericGroup.clear();
     booleanGroup.clear();
+
+    selectSynonyms.clear();
+    selectSynonymMap.clear();
+
+    selectClauses.clear();
 }
 
 unordered_set<string> QueryObject::getAllSynonyms() {
@@ -87,8 +99,16 @@ void QueryObject::setGenericGroup(vector<ClauseGroup> genericGroup) {
     genericClauses = genericGroup;
 }
 
-void QueryObject::setSelectGroup(ClauseGroup selectGroup) {
-    selectClauses = selectGroup;
+void QueryObject::addSelectGroup(string name, Clause::Type type) {
+    selectClauses.push_back(make_pair(name, type));
+}
+
+vector<string> QueryObject::getSelectSynonyms() {
+    return selectSynonyms;
+}
+
+Clause::Type QueryObject::getType(string name) {
+    return Clause::convertStringToArgType(selectSynonymMap[name]);
 }
 
 ClauseGroup QueryObject::getBooleanGroup() {
@@ -99,6 +119,6 @@ vector<ClauseGroup> QueryObject::getGenericGroup() {
     return genericClauses;
 }
 
-ClauseGroup QueryObject::getSelectGroup() {
+vector<pair<string, Clause::Type>> QueryObject::getSelectGroup() {
     return selectClauses;
 }

@@ -5,7 +5,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTesting {
-    TEST_CLASS(TestValidate) {
+    TEST_CLASS(TestUnionFind) {
 public:
 
     TEST_METHOD(testUnionFind) {

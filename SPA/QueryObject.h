@@ -60,14 +60,17 @@ public:
     vector<Clause> getGenericClauses();
     vector<Clause> getBooleanClauses();
 
-    void QueryObject::setBooleanGroup(ClauseGroup booleanGroup);
-    void QueryObject::setGenericGroup(vector<ClauseGroup> genericGroup);
-    void QueryObject::setSelectGroup(ClauseGroup selectGroup);
+    void setBooleanGroup(ClauseGroup booleanGroup);
+    void setGenericGroup(vector<ClauseGroup> genericGroup);
+    void addSelectGroup(string name, Clause::Type type);
+
+    vector<string> getSelectSynonyms();
+    Clause::Type getType(string name);
 
     // for evaluator
-    ClauseGroup QueryObject::getBooleanGroup();
-    vector<ClauseGroup> QueryObject::getGenericGroup();
-    ClauseGroup QueryObject::getSelectGroup();
+    ClauseGroup getBooleanGroup();
+    vector<ClauseGroup> getGenericGroup();
+    vector<pair<string, Clause::Type>> getSelectGroup();
 
 private:
     Clause selectClause;
@@ -78,8 +81,11 @@ private:
     vector<Clause> genericGroup;
     vector<Clause> booleanGroup;
 
+    vector<string> selectSynonyms;
+    unordered_map<string, string> selectSynonymMap;
+
     // for evaluator
     ClauseGroup booleanClauses;
     vector<ClauseGroup> genericClauses;
-    ClauseGroup selectClauses;
+    vector<pair<string, Clause::Type>> selectClauses;
 };

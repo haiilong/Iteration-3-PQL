@@ -15,7 +15,7 @@ void Clause::addSelectArg(string type, string name) {
     thirdArgName = "";
 
     synonyms.push_back(name);
-    noOfSynonyms = 1;
+    //noOfSynonyms = 1;
 }
 
 void Clause::addSelectTupleArgs(vector<string> types, vector<string> names) {
@@ -37,7 +37,6 @@ void Clause::addSelectTupleArgs(vector<string> types, vector<string> names) {
     thirdArgName = "";
 
     synonyms = names;
-    noOfSynonyms = names.size();
 }
 
 void Clause::setRelation(string relationStr, string type1, string type2, string type3, string name1, string name2, string name3) {
@@ -57,6 +56,81 @@ void Clause::setRelation(string relationStr, string type1, string type2, string 
     if (isSynonym(secondArgType)) {
         noOfSynonyms += 1;
         synonyms.push_back(secondArgName);
+    }
+
+    // set score
+    if (relation == Relation::FOLLOWS) {
+        if (noOfSynonyms == 0) score = 1;
+        else if (noOfSynonyms == 1) score = 2;
+        else if (noOfSynonyms == 2) score = 1000;
+    }
+    else if (relation == Relation::PARENT) {
+        if (noOfSynonyms == 0) score = 1;
+        else if (noOfSynonyms == 1) score = 501;
+        else if (noOfSynonyms == 2) score = 1000;
+    }
+    else if (relation == Relation::FOLLOWS_T) {
+        if (noOfSynonyms == 0) score = 1;
+        else if (noOfSynonyms == 1) score = 1000;
+        else if (noOfSynonyms == 2) score = 50500;
+    }
+    else if (relation == Relation::PARENT_T) {
+        if (noOfSynonyms == 0) score = 1;
+        else if (noOfSynonyms == 1) score = 800;
+        else if (noOfSynonyms == 2) score = 2000;
+    }
+    else if (relation == Relation::MODIFIES) {
+        if (noOfSynonyms == 0) score = 1;
+        else if (noOfSynonyms == 1) score = 525;
+        else if (noOfSynonyms == 2) score = 5500;
+    }
+    else if (relation == Relation::USES) {
+        if (noOfSynonyms == 0) score = 1;
+        else if (noOfSynonyms == 1) score = 550;
+        else if (noOfSynonyms == 2) score = 15500;
+    }
+    else if (relation == Relation::CALLS) {
+        if (noOfSynonyms == 0) score = 1;
+        else if (noOfSynonyms == 1) score = 11;
+        else if (noOfSynonyms == 2) score = 121;
+    }
+    else if (relation == Relation::CALLS_T) {
+        if (noOfSynonyms == 0) score = 1;
+        else if (noOfSynonyms == 1) score = 31;
+        else if (noOfSynonyms == 2) score = 151;
+    }
+    else if (relation == Relation::NEXT) {
+        if (noOfSynonyms == 0) score = 1;
+        else if (noOfSynonyms == 1) score = 2;
+        else if (noOfSynonyms == 2) score = 1000;
+    }
+    else if (relation == Relation::NEXT_T) {
+        if (noOfSynonyms == 0) score = 1500;
+        else if (noOfSynonyms == 1) score = 2000;
+        else if (noOfSynonyms == 2) score = 875000;
+    }
+    else if (relation == Relation::AFFECTS) {
+        if (noOfSynonyms == 0) score = 90000;
+        else if (noOfSynonyms == 1) score = 90040;
+        else if (noOfSynonyms == 2) score = 20843250;
+    }
+    else if (relation == Relation::AFFECTS_T) {
+        if (noOfSynonyms == 0) score = 20833250;
+        else if (noOfSynonyms == 1) score = 20833350;
+        else if (noOfSynonyms == 2) score = 20953250;
+    }
+    else if (relation == Relation::ASSIGN) {
+        if (noOfSynonyms == 1) score = 750;
+        else if (noOfSynonyms == 2) score = 1000;
+    }
+    else if (relation == Relation::WHILE) {
+        score = 500;
+    }
+    else if (relation == Relation::IF) {
+        score = 500;
+    }
+    else { //with
+        score = 0;
     }
 
 }
@@ -149,6 +223,10 @@ vector<string> Clause::getSynonyms() {
     return synonyms;
 }
 
+int Clause::getScore() {
+    return score;
+}
+
 bool Clause::isSynonym(Type t) {
     switch (t) {
     case Type::ASSIGN:
@@ -173,11 +251,11 @@ string Clause::toString() {
     case Relation::IF:
     case Relation::ASSIGN:
     case Relation::WHILE:
-        return firstArgName + " (" + secondArgName + ", " + secondArgName + ")";
+        return firstArgName + "(" + secondArgName + "," + secondArgName + ")";
     case Relation::WITH:
-        return firstArgName + " = " + secondArgName;
+        return firstArgName + "=" + secondArgName;
     default:
-        return convertRelationToString(relation) + " (" + firstArgName + ", " + secondArgName + ")";
+        return convertRelationToString(relation) + "(" + firstArgName + "," + secondArgName + ")";
     }
 }
 

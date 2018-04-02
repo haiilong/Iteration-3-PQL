@@ -3,6 +3,7 @@
 #include<string>
 #include<vector>
 #include<unordered_set>
+#include<unordered_map>
 
 using namespace std;
 
@@ -93,14 +94,15 @@ public:
     vector<Clause::Type> getTupleArgTypes();
     vector<string> getTupleArgNames();
 
-    Type convertStringToArgType(const string str);
-    string convertArgTypeToString(const Type type);
-    Relation convertStringToRelation(const string str);
-    string convertRelationToString(const Relation type);
+    static Type convertStringToArgType(const string str);
+    static string convertArgTypeToString(const Type type);
+    static Relation convertStringToRelation(const string str);
+    static string convertRelationToString(const Relation type);
 
     // for optimizer
     int getNoOfSyonyms();
     vector<string> getSynonyms();
+    int getScore();
 
     string toString();
 
@@ -116,6 +118,7 @@ private:
     // for optimizer
     int noOfSynonyms = 0;
     vector<string> synonyms;
+    int score = 0;
 
     bool isSynonym(Type t);
 };

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "Clause.h"
 
 using namespace std;
@@ -13,7 +14,12 @@ public:
     ~ClauseGroup();
 
     void initialize(vector<Clause> clauses);
-    void sort();
+    void sortGroup();
+    void rearrangeGroup();
+    void addClause(Clause clause);
+
+    int getScore();
 private:
     vector<Clause> clauses;
+    int score = 0;
 };
